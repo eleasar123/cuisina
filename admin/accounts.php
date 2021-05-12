@@ -148,5 +148,55 @@
     ?>
 </table>
 </div>
+
+<!-- Modal for inserting menu -->
+<div class="modal" id="addUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content" style="width:80%; margin-left:auto; margin-right:auto; text-align:left;padding: 10px;border-radius:20%;padding:20px">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">New Account</h5>
+            <button type="button" class="close" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="modal-body">
+            <form method="POST">
+              
+                <h5>Name:</h5>
+                    <input id="title" type="text" name="name" placeholder="Enter account name here"><br><br>
+                <h5>Position:</h5>
+                <select class="form-select" aria-label="Default select example" name="position">
+                    <option value="1">Admin</option>
+                    <option value="2">Waiter</option>
+                    
+                </select><br>
+                
+                    <input type="submit" name ="submit" value="Add Note"><br>
+            </form>    
+            </div> 
+            <div class="modal-footer">
+              <button  type="button" class="close">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+$(document).ready(function(){
+
+//trigger modal for inserting new account
+    $("#button1").click(function(){
+    
+        $('#addUser').modal({ backdrop: 'static', keyboard: false })
+        $('#addUser').modal('show');
+
+        $(".close").click(() => {
+            $('#addUser').modal('hide');
+
+        })
+    })
+})
+</script>
 </body>
 </html>
