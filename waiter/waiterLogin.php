@@ -11,7 +11,7 @@
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }else{
-        $sql = "SELECT * FROM `accounts` WHERE `username` = '".$username."' AND `password`= '".$password."' and position='1'";
+        $sql = "SELECT * FROM `accounts` WHERE `username` = '".$username."' AND `password`= '".$password."' and position='2'";
         // $result = $conn->query($sql);
         $result = mysqli_query($conn,$sql);
         $num_row = mysqli_num_rows($result);
@@ -26,12 +26,12 @@
         if( $num_row ==1 )
             {
        
-        header("Location: ../Restaurant_POS/landing.html");
+        header("Location: ../Restaurant_POS/pos.php");
         }
         else
             {
 
-            echo "Error: " . $username . " and " . $password." does not exist/match";
+            echo "Error: " . $emailAddress . " and " . $password." does not exist/match";
         }
    
     
