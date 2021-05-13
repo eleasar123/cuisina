@@ -15,7 +15,7 @@ if ($conn->connect_error) {
 date_default_timezone_set('Asia/Manila');
 $dateDeleted=date("Y-m-d h:i:s");
 
-$sql = "update accounts set deleted_at='".$dateDeleted."' where account_id = '".$id."'";
+$sql = "update accounts set deleted_at='".$dateDeleted."' where account_id = '".$id."' and position=2";
 if ($conn->query($sql) === TRUE) {
     ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous"></script>
