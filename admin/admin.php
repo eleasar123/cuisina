@@ -110,26 +110,27 @@
         while($row = $result->fetch_assoc()){
          
     ?>  
-      <div class="card col-sm-4" style="box-shadow:5px 5px gray; width:20rem;margin:10px;margin-top:20px;margin-bottom:20px;border:solid black 2px;height:fit-content;font-size:18px; border-radius:10%;border:solid black 2px;color:black;padding:10px;border-radius: 10px;">
+      <div class="card col-sm-4" style="box-shadow:5px 5px #4E2D04; width:20rem;margin:10px;margin-top:20px;margin-bottom:20px;border:solid black 2px;height:fit-content;font-size:18px; border-radius:10%;border:solid black 2px;color:black;padding:10px;border-radius: 10px;">
    
         <div>
         <label><strong>Id:</strong></label>
-            <span><em><?php echo $row['menu_id'] ?></em></span><br>
+        <input type="hidden" class="id" value="<?php echo $row['menu_id'] ?>">
+            <span class="menuId"><em><?php echo $row['menu_id'] ?></em></span><br>
           <label><strong>Name:</strong></label>
-            <span><em><?php echo $row['menu_name'] ?></em></span><br>
+            <span class="menuName"><em><?php echo $row['menu_name'] ?></em></span><br>
             <label><strong>Photo:</strong></label>
+            <input type="hidden" class="photo" value="<?php echo $row['menu_photo'] ?>">
             <div class="container"><img style="width:100%;height:auto;border-radius:5%"src="<?php echo $row['menu_photo'] ?>"></div>
             <label><strong>Menu Type:</strong></label>
-            <span><?php echo $row['menu_type'] ?></span><br>
-            <label><strong>Status:</strong></label>
-            <span><?php echo $row['availability'] ?></span><br>
+            <span class="menuType"><?php echo $row['menu_type'] ?></span><br>
+            <label><strong>Availability:</strong></label>
+            <span class="availability"><?php echo $row['availability'] ?></span><br>
             <label><strong>Price:</strong></label>
-            <span><?php echo "Php".$row['price'] ?></span><br>
+            <span class="menuPrice"><?php echo "Php".$row['price'] ?></span><br>
             <label><strong>Date Created:</strong></label> 
              <span><?php echo $row['created_at'] ?></span><br>
              <label><strong>Date Updated:</strong></label> 
              <span><?php echo $row['updated_at'] ?></span><br> 
-              
               <button type="button" class="update"><i class="fa fa-pen"></i>Edit Menu</button>   
         </div>
     </div>
@@ -159,24 +160,26 @@
             <form method="POST">
               
                 <h5>Name:</h5>
-                    <input id="title" type="text" name="name" placeholder="Enter menu name here"><br>
+                    <input id="title" type="text" name="menuName" placeholder="Enter menu name here"><br>
                 <h5>Photo:</h5>
                     <textarea id="photo" rows="2" cols="45" name="photo">
                     Enter menu photo here...</textarea>
-                    <input id="body" name="body" type ="text" style="visibility:hidden;height:20px;width:20px;margin:0px" value="">
-                <h5>Menu Type</h5>
-                <select class="form-select" aria-label="Default select example">
+                    
+                <h5>Menu Type:</h5>
+                <select class="form-select" aria-label="Default select example" name="menuType">
                     <option value="breakfast">breakfast</option>
                     <option value="lunch">lunch</option>
                     <option value="dessert">dessert</option>
                     <option value="dinner">dinner</option>
                 </select>
                 <h5>Availability:</h5>
-                    <input type="checkbox" id="done"  value="Done"><label>Available</label><br><br>
-                    <input id="status" name="status" type ="hidden" value="">
-                    <span><strong>Price:<strong></span>
-                    <input type="number" id="price"  value=""><br><br>
-                    <input type="submit" name ="submit" value="Add Note"><br>
+                <select class="form-select" aria-label="Default select example" name="availability">
+                    <option value="available">Available</option>
+                    <option value="not available">Not Available</option>
+                </select>
+                    <h5>Price:</h5>
+                    <input type="text" id="price"  value="" name="menuPrice"><br><br>
+                    <input type="submit" name ="addMenu" value="Add Menu"><br>
             </form>    
             </div> 
             <div class="modal-footer">
@@ -191,7 +194,7 @@
 <div class="modal" id="updateMenu" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true" >
     <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content" style="width:80%; margin-left:auto; margin-right:auto; text-align:left;padding: 10px;">
+      <div class="modal-content" style="width:80%; margin-left:auto; margin-right:auto; text-align:left;padding: 10px;border-radius:10%">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLongTitle">Update Menu</h5>
             <button type="button" class="close" aria-label="Close">
@@ -201,19 +204,28 @@
 
           <div class="modal-body">
             <form method="POST">
-                
+                <input type="hidden" id="menuNo" name="menuNo" value="">
                 <h5>Name:</h5>
-                <input id="title" type="text" name="name" placeholder="Enter title here"><br>
+                <input id="menuName" type="text" name="menuName" placeholder="Enter title here" required><br>
                 <h5>Photo:</h5>
-                <textarea id="photo" rows="4" cols="45" name="photo">
+                <textarea id="menuPhoto" rows="4" cols="45" name="photo" required>
                 Enter the online link of the photo...</textarea>
-                <input id="body" name="body" type ="text" style="visibility:hidden;height:20px;width:20px;margin:0px" value="">
+                <h5>Menu Type:</h5>
+                <select class="form-select" id="menuType" aria-label="Default select example" name="menuType">
+                    <option value="breakfast">breakfast</option>
+                    <option value="lunch">lunch</option>
+                    <option value="dessert">dessert</option>
+                    <option value="dinner">dinner</option>
+                </select>
                 <h5>Availability:</h5>
-                <input type="checkbox" id="done"  value="Done"><label>Available</label>
-                <input id="status" name="status" type ="text" style="visibility:hidden;height:10px;width:20px;margin:0px" value=""><br><br>
+                <select class="form-select" id="availability" aria-label="Default select example" name="availability">
+                    <option value="available">Available</option>
+                    <option value="not available">Not Available</option>
+                    
+                </select><br>
                 <span><strong>Price:<strong></span>
-                <input type="number" id="price"  value=""><br><br>
-                <input type="submit" name ="submit" value="Add Note"><br>
+                <input type="text" id="menuPrice"  name="menuPrice" required><br><br>
+                <input type="submit" name ="updateMenu" value="Save Changes"><br>
             </form>    
             </div> 
             <div class="modal-footer">
@@ -223,7 +235,7 @@
     </div>
 </div>
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous"></script>
 <script>
  $(document).ready(function(){
 
@@ -239,35 +251,24 @@
         })
     })
     
-    //checkbox
-    x=0;
-    $("#status").val("Not Done");
-    $('#done').click(function(){
-      if(x%2==0){
-      $(this).attr("checked",true);
-      $("#status").val("Done");
-      
-      x++;
-      }else{
-        $(this).attr("checked",false);
-      $("#status").val("Not Done");
-      
-      x++;
-      } 
-    })
-
+   
     //trigger modal for updating menu
     $(".update").click(function(){
-      var title=$(this).siblings('h3').html();
-      var body=$(this).siblings('div.container').html();
-      var status=$(this).siblings('span').html();
-      var date_created=$(this).siblings('p').html();  
+      var menuId=$(this).siblings('.id').val();
+      var menuName=$(this).siblings('span.menuName').children().html();
+      var menuPhoto=$(this).siblings('input.photo').val();
+     
+      var menuPrice=$(this).siblings('span.menuPrice').html()
+      var menuPrice=menuPrice.substr(3)
       $('#updateMenu').modal({ backdrop: 'static', keyboard: false })
+      $('#menuType').val($(this).siblings(".menuType").html())
+      $('#availability').val($(this).siblings(".availability").html())
+     
       $('#updateMenu').modal('show');
-      $('#title').val(title);
-      $('#noteBody').val(body);
-      $('status').val(status);
-      $("date").val(date_created);
+      $('#menuName').val(menuName);
+      $('#menuPhoto').val(menuPhoto);
+      $('#menuPrice').val(menuPrice);
+      $("#menuNo").val(menuId)
       $(".close").click(() => {
           $('#updateMenu').modal('hide');
 
@@ -282,26 +283,89 @@
     }
 </script>
   <?php
-      include_once("connection.php");
+      include_once('../admin/connection.php');
   // Check connection
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
   }
-      if(isset($_POST['submit'])){
-          $title=$_POST['title'];
-          $body=trim($_POST['body'],' ');
-          $status=$_POST['status'];
+
+      //on insert button click to add new menu
+      if(isset($_POST['addMenu'])){
+        
+          $menuName=$_POST['menuName'];
+          $menuPhoto=trim($_POST['photo']);
+          $menuType=$_POST['menuType'];
+          $availability=$_POST['availability'];
+          $price=$_POST['menuPrice'];
+
+          //set default timezone to asia or manila-Philippines timezone
           date_default_timezone_set('Asia/Manila');
-          $date=date("Y-m-d h:i:s");
-          if($title!="" && $body!="" && $status!=""){
-              $sql = "insert into notes(Title,Body,Status,created_at) VALUES('".$title."','".$body."','".$status."','".$date."') ";
+          $dateCreated=date("Y-m-d h:i:s");
+          echo $menuName;
+          
+              $sql = "insert into menu(menu_name, menu_type, menu_photo, availability, price,created_at) 
+              VALUES('".$menuName."','".$menuType."','".$menuPhoto."','".$availability."','".$price."','".$dateCreated."') ";
               if ($conn->query($sql) === TRUE) {
-                header("Location: notes.php");
+              ?>
+
+                 <!--fire a successful message using sweet alert -->
+                <script>
+                swal({
+                  position: 'top-end',
+                  icon: 'success',
+                  title: 'Menu added to the restaurant!',
+                  showConfirmButton: false,
+                  timer: 1800
+                
+              })
+              setTimeout(() => {
+                location.reload()
+              }, 2000);
+              </script>
+                <?php
           
               }
-          } 
+          
           
       }
+
+      //updating the menu on modal update 
+      if(isset($_POST['updateMenu'])){
+        $menuNo=$_POST['menuNo'];
+        $menuName=$_POST['menuName'];
+        $menuPhoto=trim($_POST['photo']);
+        $menuType=$_POST['menuType'];
+        $availability=$_POST['availability'];
+        $price=$_POST['menuPrice'];
+        
+        //set default timezone to asia or manila-Philippines timezone
+        date_default_timezone_set('Asia/Manila');
+        $dateUpdated=date("Y-m-d h:i:s");
+        // echo "<script>alert('$menuNo+$menuName+$menuPhoto+$menuType+$availability+$price+$dateUpdated')</script>";
+            $sql = "UPDATE menu set  menu_name='".$menuName."',menu_type='".$menuType."', menu_photo='".$menuPhoto."', availability='".$availability."',price='".$price."', updated_at='".$dateUpdated."' where menu_id='".$menuNo."'";
+            if ($conn->query($sql) === TRUE) {
+            ?>
+
+            <!--fire a successful message using sweet alert -->
+              <script>
+              swal({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Menu updated successfully!',
+                timer: 1800
+                
+              })
+              setTimeout(() => {
+                location.reload()
+              }, 2000);
+              </script>
+              <?php
+            
+        
+            }
+        
+        
+    }
   ?>
 
 </body>
