@@ -6,4 +6,5 @@ $dbname = "cuisina";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
+
 ?>

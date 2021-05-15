@@ -25,8 +25,8 @@
         $_SESSION['username']=$row['username'];
         if( $num_row ==1 )
             {
-       
-        header("Location: ../Restaurant_POS/landing.html");
+        
+        header("Location: ../admin/admin.php");
         }
         else
             {
