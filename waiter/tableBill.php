@@ -33,7 +33,7 @@ body {
       die("Connection failed: " . $conn->connect_error);
     }else{
      
-    //   $sql="SELECT table_orders.table_no, menu.menu_name,table_orders.quantity, table_orders.bill SUM(table_orders.bill) AS total_bill, table_status FROM ((table_orders inner join tables on table_orders.table_no=tables.table_no) inner join menu on menu.menu_id=table_orders.menu_id) where status='Delivered' group by table_no";
+    //   $sql="SELECT table_orders.table_no, menu.menu_name,table_orders.quantity, table_orders.bill, table_status FROM ((table_orders inner join tables on table_orders.table_no=tables.table_no) inner join menu on menu.menu_id=table_orders.menu_id) where status='Delivered'";
         $sql="SELECT table_orders.table_no, menu.menu_name,table_orders.quantity, table_orders.bill, SUM(table_orders.bill) AS total_bill, table_status FROM ((table_orders inner join tables on table_orders.table_no=tables.table_no) inner join menu on menu.menu_id=table_orders.menu_id) where status='Delivered' group by table_no";
       $result = $conn->query($sql);
       
