@@ -162,7 +162,7 @@
                 <h5>Name:</h5>
                     <input id="title" type="text" name="menuName" placeholder="Enter menu name here"><br>
                 <h5>Photo:</h5>
-                    <textarea id="photo" rows="2" cols="45" name="photo">
+                    <textarea class="form-control" id="photo" rows="2" cols="45" name="photo">
                     Enter menu photo here...</textarea>
                     
                 <h5>Menu Type:</h5>
@@ -208,7 +208,7 @@
                 <h5>Name:</h5>
                 <input id="menuName" type="text" name="menuName" placeholder="Enter title here" required><br>
                 <h5>Photo:</h5>
-                <textarea id="menuPhoto" rows="4" cols="45" name="photo" required>
+                <textarea class="form-control" id="menuPhoto" rows="4" cols="45" name="photo" required>
                 Enter the online link of the photo...</textarea>
                 <h5>Menu Type:</h5>
                 <select class="form-select" id="menuType" aria-label="Default select example" name="menuType">

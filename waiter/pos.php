@@ -27,7 +27,7 @@
     <!-- Template Main CSS File -->
     <link href="./src/style.css" rel="stylesheet">
 
-    <title>Document</title>
+    <title>Waiter</title>
 </head>
 
 <body>
@@ -56,7 +56,7 @@
                         loading="lazy" /> <span class="align-middle"><?php echo $username?></span></a>
 
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Logout</a></li>
+                    <li><a class="dropdown-item" href="waiter.html">Logout</a></li>
                 </ul>
             </div>
             <!-- Right elements -->
@@ -67,7 +67,7 @@
     <!-- Row -->
     <div class="container-fluid">
         <div class="row justify-content-center align-items-center">
-            <div class="col-sm-6" style="border-right:1px solid #D3D3D3">
+            <div class="col-sm-6" style="margin-bottom: 10%;border-right:1px solid #D3D3D3">
                 <div class="d-flex align-items-center">
                     <select name="" id="" class="form-select mt-3 w-25 p-2">
                         <option selected>Meal Category</option>
@@ -101,7 +101,7 @@
                 ?>
                 
          </div> 
-        <div class="col-sm-6" style="margin-bottom: 60%; padding:50px;">
+        <div class="col-sm-6" style="margin-bottom: 50%; padding:20px;">
             <div class="container">
                 <table class="table">
                     <thead class="table-warning">
@@ -113,6 +113,7 @@
                             <th scope="col">Total</th>
                             <th scope="col">Status</th>
                             <th scope="col">Ordered_at</th>
+                            <th scope="col">Edit</th>
                         </tr>
                     </thead>
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
@@ -126,7 +127,7 @@
                     die("Connection failed: " . $conn->connect_error);
                 }else{
                     
-                    $sql="select table_orders.table_no,menu.menu_name,menu.price, table_orders.quantity,table_orders.bill,table_orders.status, table_orders.ordered_at from ((table_orders inner join menu on table_orders.menu_id=menu.menu_id)inner join tables on tables.table_no=table_orders.table_no)";
+                    $sql="select table_orders.order_id, table_orders.table_no,menu.menu_name,menu.price, table_orders.quantity,table_orders.bill,table_orders.status, table_orders.ordered_at from ((table_orders inner join menu on table_orders.menu_id=menu.menu_id)inner join tables on tables.table_no=table_orders.table_no)";
          
                     $result = $conn->query($sql);
       
@@ -138,14 +139,15 @@
                     <tbody>
 
                         <tr>
-                        <td><?php echo $row['table_no']?></td>
-                        <td ><?php echo $row['menu_name']?></td>
+                        <td class="tableNo"><?php echo $row['table_no']?><input type="hidden" class="orderId" value="<?php echo $row['order_id'] ?>"></td>
+                        <td class="menuName"><?php echo $row['menu_name']?></td>
                         
-                        <td><?php echo '₱'.$row['price']?></td>
-                        <td><?php echo $row['quantity']?></td>
-                        <td><?php echo '₱'.$row['bill']?></td>
-                        <td><?php echo $row['status']?></td>
-                        <td><?php echo $row['ordered_at']?></td>
+                        <td class="price"><?php echo '₱'.$row['price']?></td>
+                        <td class="quantity"><?php echo $row['quantity']?></td>
+                        <td class="status"><?php echo '₱'.$row['bill']?></td>
+                        <td class="status"><?php echo $row['status']?></td>
+                        <td class="price"><?php echo $row['ordered_at']?></td>
+                        <td><button class="btn" data-bs-toggle="modal" data-bs-target="#updateOrder"><i class="fa fa-pen"></i></button></td>
                         </tr>
                     </tbody>
                 
@@ -163,9 +165,9 @@
         </div>
 
     </div>
-    </div>
+</div>
 
-<!-- Modal for inserting menu -->
+<!-- Modal for inserting new order -->
 <div class="modal" id="addOrder" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -213,6 +215,44 @@
     </div>
 </div>
 
+
+
+<!-- Modal for updating order -->
+<div class="modal" id="updateOrder" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content" style="width:80%; margin-left:auto; margin-right:auto; text-align:left;padding: 10px;border-radius:20%;padding:20px">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Edit Order</h5>
+            <button type="button" data-bs-toggle="modal" data-bs-target="#updateOrder" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="modal-body">
+            <form method="POST">
+            <input type="hidden" id="orderId" name="orderId" value="">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="">Status</span>
+                </div>
+                <select name="status" id="status" class="form-select mt-3 w-26 p-2 ms-1">
+                        <option value="Delivered">Delivered</option>
+                        <option value="Cancelled">Cancelled</option>
+               
+                    </select><br>
+            </div>
+              
+                <input type="submit" name ="updateOrder" value="Confirm Status"><br>
+            </form>    
+            </div> 
+            <div class="modal-footer">
+              <button  type="button" data-bs-toggle="modal" data-bs-target="#updateOrder">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous"></script>
 <script>
 
@@ -243,13 +283,23 @@ $(document).ready(function(){
             })
            
         })
-       
-    })
-//modal hides
-    $(".close").click(() => {
+        $(".close").click(() => {
           $('#addOrder').modal('hide');
 
         })
+
+       
+    })
+//modal hides
+   
+    $('.btn').click(function(){
+        $('#orderId').val($(this).parent().siblings('.tableNo').children('.orderId').val())
+       
+
+        })
+        $(".close").click(() => {
+          $('#updateOrder').modal('hide');
+    })    
 })
 </script>
 <script>
@@ -292,7 +342,7 @@ $(document).ready(function(){
         $dateCreated=date("Y-m-d h:i:s");
         
             $sql = "insert into table_orders(table_no, menu_id, quantity, bill, status,ordered_at) 
-            VALUES('".$tableNo."','".$menuId."','".$quantity."','".$total."','pending','".$dateCreated."') ";
+            VALUES('".$tableNo."','".$menuId."','".$quantity."','".$total."','Pending','".$dateCreated."') ";
             if ($conn->query($sql) === TRUE) {
             ?>
 
@@ -316,6 +366,35 @@ $(document).ready(function(){
         
         
     }
+
+    //updating the order status
+
+    if(isset($_POST['updateOrder'])){
+        $status=$_POST['status'];
+        $orderId=$_POST['orderId'];
+        $sql="update table_orders set status = '".$status."' where order_id='".$orderId."'";
+        
+        if($conn->query($sql)==TRUE){
+            ?>
+
+               <!--fire a successful message using sweet alert -->
+              <script>
+              swal({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Order status updated successfully!',
+                showConfirmButton: false,
+                timer: 1800
+              
+            })
+            setTimeout(() => {
+              location.reload()
+            }, 2000);
+            </script>
+              <?php
+        }
+    }
+    
 
 ?>
 </body>

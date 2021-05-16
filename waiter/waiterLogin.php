@@ -23,18 +23,17 @@
         $_SESSION['accountId']=$row['account_id'];
         $_SESSION['accountName']=$row['account_name'];
         $_SESSION['username']=$row['username'];
+        $_SESSION['position']=$row['positon'];
         if( $num_row ==1 )
             {
        
-        header("Location: ../Restaurant_POS/pos.php");
+        header("Location: pos.php");
         }
         else
             {
 
             echo "Error: " . $emailAddress . " and " . $password." does not exist/match";
         }
-   
-    
     $conn->close();
     }
 
