@@ -67,7 +67,7 @@
     <!-- Row -->
     <div class="container-fluid">
         <div class="row justify-content-center align-items-center">
-            <div class="col-sm-6" style="margin-bottom: 10%;border-right:1px solid #D3D3D3">
+            <div class="col-sm-6" style="border-right:1px solid #D3D3D3">
                 <div class="d-flex align-items-center">
                     <select name="" id="" class="form-select mt-3 w-25 p-2">
                         <option selected>Meal Category</option>
@@ -101,7 +101,7 @@
                 ?>
                 
          </div> 
-        <div class="col-sm-6" style="margin-bottom: 50%; padding:20px;">
+        <div class="col-sm-6" style=" padding:20px;">
             <div class="container">
                 <table class="table">
                     <thead class="table-warning">
@@ -127,7 +127,7 @@
                     die("Connection failed: " . $conn->connect_error);
                 }else{
                     
-                    $sql="select table_orders.order_id, table_orders.table_no,menu.menu_name,menu.price, table_orders.quantity,table_orders.bill,table_orders.status, table_orders.ordered_at from ((table_orders inner join menu on table_orders.menu_id=menu.menu_id)inner join tables on tables.table_no=table_orders.table_no)";
+                    $sql="select table_orders.order_id, table_orders.table_no,menu.menu_name,menu.price, table_orders.quantity,table_orders.bill,table_orders.status, table_orders.ordered_at from ((table_orders inner join menu on table_orders.menu_id=menu.menu_id)inner join tables on tables.table_no=table_orders.table_no) order by ordered_at asc";
          
                     $result = $conn->query($sql);
       
