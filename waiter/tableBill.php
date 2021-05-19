@@ -71,21 +71,26 @@
                     <!-- Food -->
                     <div class="card col-sm-6 mt-5 ms-s m-2" style="text-align:center;width:25rem;">
                         <form method="post">
+                        
+                        
                         <div class="product-top">
                            <h2 class="jumbotron"><?php echo 'Table Number '.$row['table_no']?></h2>
+                          
                            <?php
                                 while($row2=$result2->fetch_assoc()){
                             ?>
-                           <div class="container"><?php echo $row2['menu_name']?>&nbsp;<?php echo $row2['quantity']?>&nbsp;<?php echo '₱'.$row2['bill']?></div>
+                           <div class="container orders"><?php echo $row2['menu_name']?>&nbsp;<?php echo $row2['quantity']?>&nbsp;<?php echo '₱'.$row2['bill']?></div>
                            <?php
                                 }
                             ?>
+                             <input class="table" type="hidden" value="<?php echo $row['table_no']?>">
                                 <div class="card-body text-align-center ">
                                     <h3 class="text-center menuName"><span><?php echo $row['table_status']?></span></h3>
+                                    <input type="hidden" name="" value="<?php echo $row['quantity']?>">
                                     <h5>Total Number of Item/s:&nbsp;<span class="text-center price"><?php echo $row['quantity']?></span></h5>
                                     <h4>Total Bill:&nbsp;<span class="text-center price"><?php echo '₱'.$row['total_bill']?></span></h4>
-                                    
-                                    <button type="button" name="paid" class="btn btn-primary" title="Order">
+                                    <input type="hidden" name="" value="<?php echo $row['total_bill']?>">
+                                    <button type="button" name="paid" class="btn btn-primary receipt" title="Order">
                                         <i class="fa fa-check"></i>Confirm Bill Receipt
                                     </button>
                                     
@@ -141,7 +146,22 @@
 
     </div>
 </div>
+<script>
+$(document).ready(function(){
+    
+    $('.receipt').click(function(){
+        $orders=[]
+        console.log("bayranan")
+        $tableNo=$(this).parents().siblings('.table').val();
+        // $orders=$(this).parents().siblings('.orders').html();
+        $orders.push($(this).parents().siblings('.orders').html())
+        console.log($tableNo)
+        $quantity=$(this).siblings
+       
 
+    })
+})
+</script>
 
 </body>
 </html>

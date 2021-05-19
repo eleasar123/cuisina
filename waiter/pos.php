@@ -356,7 +356,7 @@ $(document).ready(function(){
                 timer: 1800
               
             })
-            setTimeout(() => {
+            setTimeout(() => {  
               location.reload()
             }, 2000);
             </script>
