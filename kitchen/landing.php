@@ -69,6 +69,11 @@
         }
 
       }
+      ?>
+      <div class="alert alert-info w-50 m-5 text-center" role="alert">
+          There is no order!
+      </div>
+ <?php   
       
     }
     ?>

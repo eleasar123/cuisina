@@ -58,7 +58,7 @@
                     
                     $sql="SELECT sum(quantity) as quantity, sum(bill) as bill, DATE(paid_at) as transaction_date FROM sales group by DATE(paid_at)";
                     $result = $conn->query($sql);
-      
+                    
                     if ($result->num_rows > 0) {
         
                     while($row = $result->fetch_assoc()){
@@ -90,6 +90,9 @@
         <?php
         date_default_timezone_set('Asia/Manila');
         $dateCreated=date("Y-m-d");
+        //query for displaying the menu who is top sales
+        //$query="select menu_name from menu inner join table_orders on table_orders.menu_id=menu.menu_id order by date(table_orders.paid_at)";
+
         $sql="SELECT sum(quantity) as quantity, sum(bill) as bill, DATE(paid_at) as transaction_date FROM sales where DATE(paid_at)='".$dateCreated."'";
         $result = $conn->query($sql);
 
