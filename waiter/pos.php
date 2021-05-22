@@ -127,7 +127,7 @@
                     die("Connection failed: " . $conn->connect_error);
                 }else{
                     
-                    $sql="select table_orders.order_id, table_orders.table_no,menu.menu_name,menu.price, table_orders.quantity,table_orders.bill,table_orders.status, table_orders.ordered_at from ((table_orders inner join menu on table_orders.menu_id=menu.menu_id)inner join tables on tables.table_no=table_orders.table_no) order by ordered_at asc";
+                    $sql="select table_orders.order_id, table_orders.table_no,menu.menu_name,menu.price, table_orders.quantity,table_orders.bill,table_orders.status, table_orders.ordered_at from ((table_orders inner join menu on table_orders.menu_id=menu.menu_id)inner join tables on tables.table_no=table_orders.table_no) where not table_orders.status = 'Paid' order by ordered_at asc";
          
                     $result = $conn->query($sql);
       
@@ -374,7 +374,7 @@ $(document).ready(function(){
         $orderId=$_POST['orderId'];
         $sql="update table_orders set status = '".$status."' where order_id='".$orderId."'";
         
-        if($conn->query($sql)==TRUE){
+        if($conn->query($sql)===TRUE){
             ?>
 
                <!--fire a successful message using sweet alert -->

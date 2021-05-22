@@ -19,10 +19,10 @@
         
         if( $num_row ==1 )
             {
-        
         $_SESSION['accountId']=$row['account_id'];
         $_SESSION['accountName']=$row['account_name'];
         $_SESSION['username']=$row['username'];
+        $_SESSION['position']=1;
         if( $num_row ==1 )
             {
         
