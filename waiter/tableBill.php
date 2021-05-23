@@ -96,12 +96,13 @@
             
         }
 
-      }
+      }else{
     ?>
         <div class="alert alert-info w-50 m-5 text-center" role="alert">
             All table bills are paid. Customers are not done eating!
         </div>
    <?php   
+      }
     }
     ?>
 
@@ -129,11 +130,11 @@
             //set default timezone to asia or manila-Philippines timezone
             date_default_timezone_set('Asia/Manila');
             $datePaid=date("Y-m-d h:i:s");
-            $query="update table_orders set status='Paid' and paid_at = '".$datePaid."' where table_no='".$tableNo."'";
+            $query="update table_orders set status='Paid', paid_at = '".$datePaid."' where table_no='".$tableNo."'";
             // $sql="update tables set total_bill='".$totalBill."', table_status = 'available' where table_no = '".$tableNo."' ";
             $sql="insert into sales (table_no, customer_name, quantity, bill, paid_at, signature) values('".$table_no."', '".$customer."', '".$quantity."', '".$totalBill."', '".$datePaid."', '".$waiter."')";
-            if($conn->query($query)===TRUE){
-                if($conn->query($sql)===TRUE){
+            if($conn->query($query)===TRUE && $conn->query($sql)===TRUE){
+              
                 ?>
 
                <!--fire a successful message using sweet alert -->
@@ -151,7 +152,7 @@
                 }, 2000);
                 </script>
               <?php
-                }
+                
             }else{
                 ?>
 
